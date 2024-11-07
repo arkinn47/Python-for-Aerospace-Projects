@@ -1,7 +1,9 @@
 import sys                              
 import numpy as np                      
 import matplotlib.pyplot as plt         
-from mpl_toolkits.mplot3d import Axes3D  
+from mpl_toolkits.mplot3d import Axes3D
+import logging
+logger = logging.getLogger(__name__)
 
 
 # Define data for planets
@@ -21,9 +23,9 @@ orbit_period = [0.24, 0.62, 1.0, 1.88, 11.86, 29.46, 84.01, 164.8]  # in years
 # Define background as black
 plt.style.use('dark_background')
 
-def create_visualization(dimensions = None):
+def create_visualization(dimension = None):
     '''Create 2d or 3d visualization.'''
-    dimension = dimensions
+    logging.basicConfig(filename='vis_log.log', level=logging.INFO)
     if dimension is not None:
         figure3d, axes3d = plt.subplots(figsize=(9, 9))
         if dimension == 'both':
@@ -33,11 +35,14 @@ def create_visualization(dimensions = None):
         figure2d, axes2d = plt.subplots(figsize=(9, 9))
 
     if dimension == '3d':
+        logger.info('3D visualization selected.')
         axes3d = figure3d.add_subplot(111, projection='3d')
         axes3d.scatter(0, 0, 0, color='yellow', s=50, label='Sun')
     elif dimension == '2d':
+        logger.info('2D visualization selected.')
         axes3d.scatter(0, 0, color='yellow', s=50, label='Sun')
     elif dimension == 'both' or dimension is None:
+        logger.info('2D and 3D visualization selected.')
         #Create 2d plot.
         axes3d = figure3d.add_subplot(111, projection='3d')
         axes3d.scatter(0, 0, 0, color='yellow', s=50, label='Sun')
