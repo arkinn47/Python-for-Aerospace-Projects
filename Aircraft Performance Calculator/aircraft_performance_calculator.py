@@ -1,4 +1,3 @@
-
 # Pre-defined variable values
 fuel_capacity = 1000  # gallons
 fuel_consumption_rate = 50  # gallons per hour
